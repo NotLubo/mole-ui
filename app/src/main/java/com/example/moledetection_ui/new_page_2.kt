@@ -23,14 +23,18 @@ class new_page_2 : AppCompatActivity() {
         setContentView(R.layout.activity_new_page_2)
 
         findViewById<Button>(R.id.button_tpRoll).setOnClickListener {
+            mSnapMode = SnapshotKind.ROLL
             dispatchTakePictureIntent()
         }
+        findViewById<Button>(R.id.button_coin).setOnClickListener {
+            mSnapMode = SnapshotKind.COIN
+            dispatchTakePictureIntent()
+        }
+
     }
 
-    fun invokePic(mode: SnapshotKind){
-        // TODO coin mode
-
-    }
+    // todo questionable
+    lateinit var mSnapMode: SnapshotKind
 
     lateinit var mCurrentPhotoPath: String
 
@@ -94,7 +98,7 @@ class new_page_2 : AppCompatActivity() {
             StaticDetector.INSTANCE = StaticDetector(
                 mCurrentPhotoPath,
                 applicationContext,
-                SnapshotKind.ROLL)
+                mSnapMode)
             // the !! is SO wrong
             if(StaticDetector.INSTANCE!!.MakeSnapshot()){
                 val intent = Intent(this, new_page_3::class.java).apply {
@@ -105,7 +109,7 @@ class new_page_2 : AppCompatActivity() {
             } else {
                 Toast.makeText(
                     applicationContext,
-                    "No measurement or lesion found in photo",
+                    "No " + (if(mSnapMode == SnapshotKind.ROLL) "roll" else "coin") + " or lesion found in photo",
                     Toast.LENGTH_LONG
                 ).show()
             }

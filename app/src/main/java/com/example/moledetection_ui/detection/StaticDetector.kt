@@ -51,14 +51,15 @@ class StaticDetector(picUri: String, context: Context, val mMode: SnapshotKind) 
                 else -> null
             } ?: return null
 
-        val resultBox = findBest(hashSetOf("Defect", "Naevus"), predictions)?.bbox ?: return null
+        val result = findBest(hashSetOf("Defect", "Naevus"), predictions) ?: return null
 
         return Snapshot(
             0,
             mCropBitmap,
             mMode,
+            result.label,
             measureBox,
-            resultBox
+            result.bbox
             )
     }
 

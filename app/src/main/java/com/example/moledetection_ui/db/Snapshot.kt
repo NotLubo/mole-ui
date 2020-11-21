@@ -17,6 +17,7 @@ data class Snapshot(
     var picture: String, // let's just pray a string uri will work*/
     var pic: Bitmap,
     var kind: SnapshotKind,
+    var label: String,
     /*@Embedded(prefix = "scale_")*/ var scaleBox: BBox,
     /*@Embedded(prefix = "lesion_")*/ var lesionBox: BBox
 ) {
