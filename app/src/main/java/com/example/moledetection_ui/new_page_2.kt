@@ -101,11 +101,10 @@ class new_page_2 : AppCompatActivity() {
                 mSnapMode)
             // the !! is SO wrong
             if(StaticDetector.INSTANCE!!.MakeSnapshot()){
-                val intent = Intent(this, new_page_3::class.java).apply {
-                    this.putExtra("lesionId", this@new_page_2.intent.extras!!["lesionId"] as Int)
-                    this.putExtra("picPath", mCurrentPhotoPath)
+                val intent = Intent(this, ConfirmPicActivity::class.java).apply {
+                    this.putExtra("showOk", true)
                 }
-                startActivity(intent)
+                startActivityForResult(intent, REQUEST_CONFIRM)
             } else {
                 Toast.makeText(
                     applicationContext,
@@ -113,6 +112,12 @@ class new_page_2 : AppCompatActivity() {
                     Toast.LENGTH_LONG
                 ).show()
             }
+        } else if(requestCode == REQUEST_CONFIRM && resultCode == Activity.RESULT_OK){
+            val intent = Intent(this, new_page_3::class.java).apply {
+                this.putExtra("lesionId", this@new_page_2.intent.extras!!["lesionId"] as Int)
+                this.putExtra("picPath", mCurrentPhotoPath)
+            }
+            startActivity(intent)
         }
     }
 
@@ -120,5 +125,6 @@ class new_page_2 : AppCompatActivity() {
 
     companion object {
         const val REQUEST_IMAGE_CAPTURE = 1
+        const val REQUEST_CONFIRM = 2
     }
 }
