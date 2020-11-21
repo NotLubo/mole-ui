@@ -1,9 +1,11 @@
 package com.example.moledetection_ui
 
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import com.example.moledetection_ui.db.Snapshot
@@ -42,5 +44,10 @@ class new_page_3 : AppCompatActivity() {
         findViewById<TextView>(R.id.textView_afterDate).text = "21.11.2020"
 
         findViewById<TextView>(R.id.textView_sizeChange).text = "+0.01mm"
+
+        findViewById<Button>(R.id.button_Save).setOnClickListener {
+            val saveIntent = Intent(this, MockSaveDialog::class.java)
+            startActivity(saveIntent)
+        }
     }
 }

@@ -23,7 +23,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Moledetectionui">
-        <activity android:name=".ConfirmPicActivity"></activity>
+        <activity android:name=".MockSaveDialog"></activity>
+        <activity android:name=".ConfirmPicActivity" />
         <activity android:name=".ViewLesion" />
         <activity
             android:name=".home"
