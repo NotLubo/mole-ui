@@ -1,5 +1,6 @@
 package com.example.moledetection_ui
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.graphics.Bitmap
 import android.graphics.Canvas
@@ -11,6 +12,7 @@ import android.text.TextPaint
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.TextView
 import com.example.moledetection_ui.db.SnapshotKind
 import com.example.moledetection_ui.detection.BBox
 import com.example.moledetection_ui.detection.StaticDetector
@@ -50,6 +52,7 @@ class ConfirmPicActivity : AppCompatActivity() {
     lateinit var labelPaint: Paint
     lateinit var textPaint: TextPaint
 
+    @SuppressLint("SetTextI18n")
     fun displayPrediction(){
         val snap = StaticDetector.INSTANCE!!.snapshotInstance!!
         // the boxes look nice at 1k px, dynamic scaling is todo
@@ -81,6 +84,21 @@ class ConfirmPicActivity : AppCompatActivity() {
         drawBox(snap.label, snap.lesionBox)
 
         findViewById<ImageView>(R.id.imageView_preview).setImageBitmap(bitmap)
+
+        findViewById<TextView>(R.id.textView_Size).text = snap.label + " size: " +
+            when(snap.kind){
+                SnapshotKind.ROLL -> {
+                    //prediction.label + " " + formatToTwoDecimal((prediction.bbox.width/rollWidth) *45f) + "\nx" + formatToTwoDecimal((prediction.bbox.height/rollWidth)*45f) + "mm"
+                    formatToTwoDecimal((snap.lesionBox.width/snap.scaleBox.width)*45f) +
+                        "x" +
+                            formatToTwoDecimal((snap.lesionBox.height/snap.scaleBox.width)*45f)
+                }
+                SnapshotKind.COIN -> {
+                    formatToTwoDecimal((snap.lesionBox.width/snap.scaleBox.width)*21.5f) +
+                            "x" +
+                            formatToTwoDecimal((snap.lesionBox.height/snap.scaleBox.width)*21.5f)
+                }
+            } + "mm"
     }
 
     fun drawBox(label: String, bBox: BBox){
@@ -97,5 +115,11 @@ class ConfirmPicActivity : AppCompatActivity() {
         canvas.drawRect(boxLeft, yOrigin, boxLeft + width, yOrigin + height, labelPaint)
 
         canvas.drawText(label, boxLeft + 3 * dpi, boxTop - 6 * dpi, textPaint)
+    }
+
+    companion object{
+        fun formatToTwoDecimal(float: Float) : String{
+            return "%.2f".format(float)
+        }
     }
 }
