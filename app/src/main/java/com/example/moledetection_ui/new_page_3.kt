@@ -27,7 +27,7 @@ class new_page_3 : AppCompatActivity() {
         setContentView(R.layout.activity_new_page_3)
 
         findViewById<TextView>(R.id.textView_beforeDate).text = StaticDb.snapshot.time.toString()
-        findViewById<ImageView>(R.id.imageViewBefore).setImageBitmap(StaticDb.snapshot.pic)
+        findViewById<ImageView>(R.id.imageViewBefore).setImageBitmap(cropImageIfRoll(StaticDb.snapshot))
 
 
         // todo the singleton must go
