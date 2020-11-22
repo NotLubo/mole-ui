@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -38,10 +37,9 @@ class new_page_3 : AppCompatActivity() {
 
         val origSize = StaticDb.snapshot.getRealSize()
         val newSize = snapshot.getRealSize()
-        val increase =
-                (((newSize[0]*newSize[1])/(origSize[0]*origSize[1]))*100f)-100f
 
-        findViewById<TextView>(R.id.textView_sizeChange).text = "%.3f".format(increase) + "%"
+        findViewById<TextView>(R.id.textView_beforeSize).text = "Original size: " + Exporter.getSizeString(origSize) + "mm"
+        findViewById<TextView>(R.id.textView_afterSize).text = "New size: " + Exporter.getSizeString(newSize) + "mm"
 
         findViewById<Button>(R.id.button_Share).setOnClickListener {
             Exporter.export(this.applicationContext).also {

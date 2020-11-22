@@ -97,7 +97,7 @@ class Exporter {
             }
         }
 
-        private fun getSizeString(size: Array<Float>): String{
+        public fun getSizeString(size: Array<Float>): String{
             return "%.3f".format(size[0]) + "x" + "%.3f".format(size[1])
         }
     }
