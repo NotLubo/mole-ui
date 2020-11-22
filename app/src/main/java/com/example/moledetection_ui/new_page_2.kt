@@ -59,13 +59,6 @@ class new_page_2 : AppCompatActivity() {
 
 
     private fun dispatchTakePictureIntent() {
-        /*val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        try {
-            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
-        } catch (e: ActivityNotFoundException) {
-            // display error state to the user
-            Toast.makeText(this.context, "Somethin' done fucked up lad", Toast.LENGTH_LONG).show()
-        }*/
         // todo correct way to do this is requireContext().contentResolver
         this.applicationContext.also{ context ->
             Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
@@ -76,7 +69,7 @@ class new_page_2 : AppCompatActivity() {
                         createImageFile()
                     } catch (ex: IOException) {
                         // Error occurred while creating the File
-                        Toast.makeText(context, "Somethin' done fucked up lad", Toast.LENGTH_LONG).show()
+                        Toast.makeText(context, "Something went wrong.", Toast.LENGTH_LONG).show()
                         null
                     }
                     // Continue only if the File was successfully created

@@ -10,6 +10,8 @@ import android.os.Build
 import android.os.Environment
 import android.text.TextPaint
 import androidx.annotation.RequiresApi
+import com.example.moledetection_ui.db.StaticDb
+import com.example.moledetection_ui.detection.StaticDetector
 import java.io.File
 import java.io.IOException
 import java.util.*
@@ -34,24 +36,39 @@ class Exporter {
             val page = doc.startPage(pageInfo)
             val canvas = page.canvas
 
-            val mockSource = BitmapFactory.decodeResource(
+            /*val mockSource = BitmapFactory.decodeResource(
                 context.resources,
                 R.drawable.orig_mole
             )
 
-            val scaled = Bitmap.createScaledBitmap(mockSource, 1000, 1000, false)
+            val scaled = Bitmap.createScaledBitmap(mockSource, 1000, 1000, false)*/
+
+            var snapshot = StaticDetector.INSTANCE!!.snapshotInstance!!
 
             val halfPage = (DRAWABLE_WIDTH-MARGIN)/2
 
-            canvas.drawBitmap(mockSource,null, Rect(0, 0, halfPage, halfPage), null)
-            canvas.drawBitmap(mockSource,null, Rect(halfPage, 0, DRAWABLE_WIDTH - MARGIN, halfPage), null)
+            canvas.drawBitmap(StaticDb.snapshot.pic, null, Rect(0, 0, halfPage, halfPage), null)
+            canvas.drawBitmap(snapshot.pic,null, Rect(halfPage, 0, DRAWABLE_WIDTH - MARGIN, halfPage), null)
+
+            val origSize = StaticDb.snapshot.getRealSize()
+            val newSize = snapshot.getRealSize()
+            val increase =
+                    (((newSize[0]*newSize[1])/(origSize[0]*origSize[1]))*100f)-100f
+
+            val text =
+                    StaticDb.snapshot.time.toString() + " " +
+                            getSizeString(origSize) + "mm; "+
+                            snapshot.time.toString() + " " +
+                            getSizeString(newSize) + "mm; "+
+                            "Growth " + "%.3f".format(increase) + "%"
+
 
             canvas.drawText(
-                "20.11.20 15.42x16.94mm; 20.11.20 15.42x16.95mm; Growth +0.01mm/0.05%",
+                text,
                 0f,
                 halfPage+18f,
                 TextPaint().apply {
-                    textSize = 18f
+                    textSize = 10f
                     color = Color.BLACK
                 }
             )
@@ -78,6 +95,10 @@ class Exporter {
             ).apply {
                 deleteOnExit()
             }
+        }
+
+        private fun getSizeString(size: Array<Float>): String{
+            return "%.3f".format(size[0]) + "x" + "%.3f".format(size[1])
         }
     }
 }

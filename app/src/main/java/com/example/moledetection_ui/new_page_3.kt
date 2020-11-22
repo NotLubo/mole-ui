@@ -44,8 +44,6 @@ class new_page_3 : AppCompatActivity() {
         findViewById<TextView>(R.id.textView_sizeChange).text = "%.3f".format(increase) + "%"
 
         findViewById<Button>(R.id.button_Share).setOnClickListener {
-            /*val saveIntent = Intent(this, MockSaveDialog::class.java)
-            startActivity(saveIntent)*/
             Exporter.export(this.applicationContext).also {
                 val pdfUri: Uri = FileProvider.getUriForFile(
                     this.applicationContext,

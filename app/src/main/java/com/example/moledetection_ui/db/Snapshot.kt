@@ -2,10 +2,6 @@ package com.example.moledetection_ui.db
 
 import android.graphics.Bitmap
 import android.net.Uri
-import androidx.room.ColumnInfo
-import androidx.room.Embedded
-import androidx.room.Entity
-import androidx.room.PrimaryKey
 import com.example.moledetection_ui.detection.BBox
 import java.time.LocalDateTime
 
