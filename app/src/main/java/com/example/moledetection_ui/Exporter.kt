@@ -52,15 +52,12 @@ class Exporter {
 
             val origSize = StaticDb.snapshot.getRealSize()
             val newSize = snapshot.getRealSize()
-            val increase =
-                    (((newSize[0]*newSize[1])/(origSize[0]*origSize[1]))*100f)-100f
 
             val text =
                     StaticDb.snapshot.time.toString() + " " +
-                            getSizeString(origSize) + "mm; "+
+                            getSizeString(origSize) + "mm  |  "+
                             snapshot.time.toString() + " " +
-                            getSizeString(newSize) + "mm; "+
-                            "Growth " + "%.3f".format(increase) + "%"
+                            getSizeString(newSize) + "mm"
 
 
             canvas.drawText(
