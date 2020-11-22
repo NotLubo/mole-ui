@@ -6,30 +6,23 @@
     android:layout_height="match_parent"
     tools:context=".new_page_1">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="414dp"
-        android:layout_height="501dp"
-        android:layout_marginTop="32dp"
-        android:contentDescription="@string/title_home"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.666"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.142"
-        app:srcCompat="@drawable/mock_body_picker" />
-
-    <TextView
-        android:id="@+id/textView"
+    <Button
+        android:id="@+id/button_updateWorkflow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="76dp"
-        android:text="Select location of mole"
-        android:textSize="18sp"
+        android:layout_marginTop="32dp"
+        android:text="Update lesion"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.486"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/button_addNew"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Add new lesion"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_updateWorkflow" />
 </androidx.constraintlayout.widget.ConstraintLayout>

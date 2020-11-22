@@ -2,6 +2,7 @@ package com.example.moledetection_ui
 
 import android.app.Activity
 import android.app.Application
+import android.app.Notification
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
@@ -110,11 +111,18 @@ class new_page_2 : AppCompatActivity() {
                 ).show()
             }
         } else if(requestCode == REQUEST_CONFIRM && resultCode == Activity.RESULT_OK){
-            val intent = Intent(this, new_page_3::class.java).apply {
-                this.putExtra("lesionId", this@new_page_2.intent.extras!!["lesionId"] as Int)
-                this.putExtra("picPath", mCurrentPhotoPath)
+            if(StaticDb.currentLesion?.snapshot != null){
+                val intent = Intent(this, new_page_3::class.java).apply {
+                    this.putExtra("picPath", mCurrentPhotoPath)
+                }
+                startActivityForResult(intent, REQUEST_SHOW_COMPARISON)
+            } else {
+                StaticDb.currentLesion!!.snapshot = StaticDetector.INSTANCE!!.snapshotInstance
+                StaticDb.lesions.add(StaticDb.currentLesion!!)
+                StaticDb.currentLesion = null
+                setResult(Activity.RESULT_OK)
+                finish()
             }
-            startActivityForResult(intent, REQUEST_SHOW_COMPARISON)
         } else if(requestCode == REQUEST_SHOW_COMPARISON && resultCode == Activity.RESULT_OK){
             finish()
         }

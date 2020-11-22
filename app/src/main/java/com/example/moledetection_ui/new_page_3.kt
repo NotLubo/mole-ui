@@ -19,15 +19,19 @@ import com.example.moledetection_ui.db.StaticDb
 import com.example.moledetection_ui.detection.StaticDetector
 
 class new_page_3 : AppCompatActivity() {
+
+    lateinit var oldSnap: Snapshot;
+
     @SuppressLint("SetTextI18n")
     @RequiresApi(Build.VERSION_CODES.KITKAT)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_page_3)
 
-        findViewById<TextView>(R.id.textView_beforeDate).text = StaticDb.snapshot.time.toString()
-        findViewById<ImageView>(R.id.imageViewBefore).setImageBitmap(cropImageIfRoll(StaticDb.snapshot))
+        oldSnap = StaticDb.currentLesion!!.snapshot!!
 
+        findViewById<TextView>(R.id.textView_beforeDate).text = oldSnap.time.toString()
+        findViewById<ImageView>(R.id.imageViewBefore).setImageBitmap(cropImageIfRoll(oldSnap))
 
         // todo the singleton must go
         val snapshot = StaticDetector.INSTANCE!!.snapshotInstance!!
@@ -35,7 +39,7 @@ class new_page_3 : AppCompatActivity() {
 
         findViewById<TextView>(R.id.textView_afterDate).text = snapshot.time.toString()
 
-        val origSize = StaticDb.snapshot.getRealSize()
+        val origSize = oldSnap.getRealSize()
         val newSize = snapshot.getRealSize()
 
         findViewById<TextView>(R.id.textView_beforeSize).text = "Original size: " + Exporter.getSizeString(origSize) + "mm"
@@ -58,7 +62,7 @@ class new_page_3 : AppCompatActivity() {
         }
 
         findViewById<Button>(R.id.button_Save).setOnClickListener{
-            StaticDb.snapshot = snapshot
+            StaticDb.currentLesion!!.snapshot = snapshot
             setResult(Activity.RESULT_OK)
             finish()
         }

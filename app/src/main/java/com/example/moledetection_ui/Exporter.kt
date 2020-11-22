@@ -44,17 +44,18 @@ class Exporter {
             val scaled = Bitmap.createScaledBitmap(mockSource, 1000, 1000, false)*/
 
             var snapshot = StaticDetector.INSTANCE!!.snapshotInstance!!
+            var oldSnap = StaticDb.currentLesion!!.snapshot!!
 
             val halfPage = (DRAWABLE_WIDTH-MARGIN)/2
 
-            canvas.drawBitmap(StaticDb.snapshot.pic, null, Rect(0, 0, halfPage, halfPage), null)
+            canvas.drawBitmap(oldSnap.pic, null, Rect(0, 0, halfPage, halfPage), null)
             canvas.drawBitmap(snapshot.pic,null, Rect(halfPage, 0, DRAWABLE_WIDTH - MARGIN, halfPage), null)
 
-            val origSize = StaticDb.snapshot.getRealSize()
+            val origSize = oldSnap.getRealSize()
             val newSize = snapshot.getRealSize()
 
             val text =
-                    StaticDb.snapshot.time.toString() + " " +
+                    oldSnap.time.toString() + " " +
                             getSizeString(origSize) + "mm  |  "+
                             snapshot.time.toString() + " " +
                             getSizeString(newSize) + "mm"

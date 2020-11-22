@@ -15,10 +15,7 @@ class ViewLesion : AppCompatActivity() {
         setContentView(R.layout.activity_view_lesion)
         // todo many things
         findViewById<Button>(R.id.button_update).setOnClickListener{
-            //val lesion = mLesions.get(0)
-            val intent = Intent(this, new_page_2::class.java).apply {
-                this.putExtra("lesionId", this@ViewLesion.intent.extras!!["lesionId"] as Int)
-            }
+            val intent = Intent(this, new_page_2::class.java)
             startActivityForResult(intent, 0)
         }
         refresh()
@@ -30,12 +27,12 @@ class ViewLesion : AppCompatActivity() {
     }
 
     fun refresh(){
-        findViewById<TextView>(R.id.textView_lesionViewTitle).text = "Thigh defect"
+        findViewById<TextView>(R.id.textView_lesionViewTitle).text = StaticDb.currentLesion!!.name
         findViewById<TextView>(R.id.textView_lesionViewLastChecked).text =
-                StaticDb.snapshot.time.toString()
+                StaticDb.currentLesion!!.snapshot!!.time.toString()
         findViewById<ImageView>(R.id.imageView_viewLesion).setImageBitmap(
                 // constant size makes crazy Android SDKs happy
-                Bitmap.createScaledBitmap(StaticDb.snapshot.pic, 1000, 1000, false)
+                Bitmap.createScaledBitmap(StaticDb.currentLesion!!.snapshot!!.pic, 1000, 1000, false)
         )
     }
 }
