@@ -85,20 +85,9 @@ class ConfirmPicActivity : AppCompatActivity() {
 
         findViewById<ImageView>(R.id.imageView_preview).setImageBitmap(bitmap)
 
+        var lesionSize = snap.getRealSize()
         findViewById<TextView>(R.id.textView_Size).text = snap.label + " size: " +
-            when(snap.kind){
-                SnapshotKind.ROLL -> {
-                    //prediction.label + " " + formatToTwoDecimal((prediction.bbox.width/rollWidth) *45f) + "\nx" + formatToTwoDecimal((prediction.bbox.height/rollWidth)*45f) + "mm"
-                    formatToTwoDecimal((snap.lesionBox.width/snap.scaleBox.width)*45f) +
-                        "x" +
-                            formatToTwoDecimal((snap.lesionBox.height/snap.scaleBox.width)*45f)
-                }
-                SnapshotKind.COIN -> {
-                    formatToTwoDecimal((snap.lesionBox.width/snap.scaleBox.width)*21.5f) +
-                            "x" +
-                            formatToTwoDecimal((snap.lesionBox.height/snap.scaleBox.width)*21.5f)
-                }
-            } + "mm"
+            formatToTwoDecimal(lesionSize[0]) + " x " + formatToTwoDecimal(lesionSize[1]) + "mm"
     }
 
     fun drawBox(label: String, bBox: BBox){

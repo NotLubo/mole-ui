@@ -37,6 +37,7 @@
         android:layout_marginLeft="80dp"
         android:layout_marginTop="12dp"
         android:text="TextView"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
@@ -59,6 +60,7 @@
         android:layout_marginEnd="88dp"
         android:layout_marginRight="88dp"
         android:text="TextView"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
@@ -72,19 +74,6 @@
         android:text="After"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/editTextTextPersonName"
-        android:layout_width="324dp"
-        android:layout_height="41dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Description"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_sizeChange"
-        app:layout_constraintVertical_bias="0.254" />
 
     <Button
         android:id="@+id/button3"
@@ -109,10 +98,12 @@
         android:id="@+id/button_Save"
         android:layout_width="133dp"
         android:layout_height="52dp"
+        android:layout_marginEnd="95dp"
+        android:layout_marginRight="95dp"
         android:layout_marginBottom="68dp"
         android:text="Save"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/button_Share"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
@@ -125,5 +116,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_beforeDate"
         tools:srcCompat="@tools:sample/avatars" />
+
+    <Button
+        android:id="@+id/button_Share"
+        android:layout_width="133dp"
+        android:layout_height="52dp"
+        android:layout_marginBottom="68dp"
+        android:text="Share"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/button_Save" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

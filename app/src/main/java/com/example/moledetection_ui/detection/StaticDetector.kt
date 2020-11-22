@@ -4,8 +4,11 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.media.ThumbnailUtils
+import android.os.Build
+import androidx.annotation.RequiresApi
 import com.example.moledetection_ui.db.Snapshot
 import com.example.moledetection_ui.db.SnapshotKind
+import java.time.LocalDateTime
 
 class StaticDetector(picUri: String, context: Context, val mMode: SnapshotKind) {
 
@@ -24,11 +27,13 @@ class StaticDetector(picUri: String, context: Context, val mMode: SnapshotKind) 
         mClassifierMoles = ImageClassifierNew(context, "model_moles/model.tflite", arrayOf("Roll", "Naevus"), arrayOf(0.9f, 0.3f))
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     public fun MakeSnapshot() : Boolean {
         snapshotInstance = RunPredict()
         return snapshotInstance != null
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun RunPredict() : Snapshot? {
         val scaled = Bitmap.createScaledBitmap(
             mCropBitmap,
@@ -54,10 +59,10 @@ class StaticDetector(picUri: String, context: Context, val mMode: SnapshotKind) 
         val result = findBest(hashSetOf("Defect", "Naevus"), predictions) ?: return null
 
         return Snapshot(
-            0,
             mCropBitmap,
             mMode,
             result.label,
+            LocalDateTime.now(),
             measureBox,
             result.bbox
             )

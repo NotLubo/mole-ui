@@ -4,14 +4,17 @@ import android.app.Activity
 import android.app.Application
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
 import android.widget.Button
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.core.content.FileProvider
 import com.example.moledetection_ui.db.SnapshotKind
+import com.example.moledetection_ui.db.StaticDb
 import com.example.moledetection_ui.detection.StaticDetector
 import java.io.File
 import java.io.IOException
@@ -91,6 +94,7 @@ class new_page_2 : AppCompatActivity() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -117,7 +121,9 @@ class new_page_2 : AppCompatActivity() {
                 this.putExtra("lesionId", this@new_page_2.intent.extras!!["lesionId"] as Int)
                 this.putExtra("picPath", mCurrentPhotoPath)
             }
-            startActivity(intent)
+            startActivityForResult(intent, REQUEST_SHOW_COMPARISON)
+        } else if(requestCode == REQUEST_SHOW_COMPARISON && resultCode == Activity.RESULT_OK){
+            finish()
         }
     }
 
@@ -126,5 +132,6 @@ class new_page_2 : AppCompatActivity() {
     companion object {
         const val REQUEST_IMAGE_CAPTURE = 1
         const val REQUEST_CONFIRM = 2
+        const val REQUEST_SHOW_COMPARISON = 3
     }
 }
